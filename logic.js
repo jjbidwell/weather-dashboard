@@ -1,6 +1,6 @@
 
 var weatherAppID = "a8fe1a1c44677133fbab3264e86bad65";
-var locID = "d5655670775c5fa5776da2665c1a5c6f03f70d5";
+var locID = "iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg";
 var city = "";
 var state = "";
 var lat;
@@ -8,18 +8,18 @@ var long;
 //var tempArray = [];
 $('.submit-btn').on('click', function(event){
     event.preventDefault()
-    
+var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg&location=victorville,ca"
     if($(this).attr('id') === 'city-btn' && $('#city').val().trim() !== ""){
         //Search by City
         city = $('#city').val();        
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + weatherAppID;
-        var locationURL =  "https://api.geocod.io/v1.6/geocode?q=" + city + "&api_key=" + locID;   
+        var locationURL =  "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location=" + city;   
                 
     } else if($(this).attr('id') === 'zip-btn' && $('#zip').val().trim() !== ""){
         //Searcg by zip
         var zip = $('#zip').val();
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + weatherAppID;
-        var locationURL =  "https://api.geocod.io/v1.6/geocode?q=" + zip + "&api_key=" + locID;  
+        var locationURL =  "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location=" + zip;  
 
     }
 
@@ -41,10 +41,8 @@ $('.submit-btn').on('click', function(event){
             url: locationURL,
             method: "GET",
             }).then(function (locationData) {
-              console.log(locationData.results[0].address_components);
-                $("#city-name").text("City: " + locationData.results[0].address_components.city + ", " + locationData.results[0].address_components.state);
-                lat = locationData.results[0].location.lat;
-                long = locationData.results[0].location.lng;
+                console.log(locationData);
+               
                 var forcastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly&units=imperial&appid=a8fe1a1c44677133fbab3264e86bad65"
                 $.ajax({
                 url: forcastURL,
