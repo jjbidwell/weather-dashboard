@@ -41,13 +41,18 @@ var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIph
             url: locationURL,
             method: "GET",
             }).then(function (locationData) {
-                console.log(locationData);
-               
+                console.log(locationData)
+                console.log(locationData.results[0].locations[0].adminArea5);
+                console.log(locationData.results[0].locations[0].adminArea3);
+                console.log(locationData.results[0].locations[0].adminArea1);
+                console.log("Lat " + locationData.results[0].locations[0].displayLatLng.lat);
+                console.log("Lng " + locationData.results[0].locations[0].displayLatLng.lng);
                 var forcastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly&units=imperial&appid=a8fe1a1c44677133fbab3264e86bad65"
                 $.ajax({
                 url: forcastURL,
                 method: "GET",
                 }).then(function (weatherData) {
+                    con
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");
                     // $("#hi-temp").text("High temperature: " + data.main.temp_max);
