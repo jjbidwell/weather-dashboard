@@ -12,15 +12,11 @@ var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIph
     if($(this).attr('id') === 'city-btn' && $('#city').val().trim() !== ""){
         //Search by City
         city = $('#city').val();        
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + weatherAppID;
-        var locationURL =  "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location=" + city;   
-                
+        var oneDayURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + weatherAppID;     
     } else if($(this).attr('id') === 'zip-btn' && $('#zip').val().trim() !== ""){
         //Searcg by zip
         var zip = $('#zip').val();
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + weatherAppID;
-        var locationURL =  "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location=" + zip;  
-
+        var oneDayURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + weatherAppID;
     }
 
     
@@ -38,21 +34,25 @@ var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIph
 
 
         $.ajax({
-            url: locationURL,
+            url: oneDayURL,
             method: "GET",
             }).then(function (locationData) {
+                console.log(oneDayURL);
                 console.log(locationData)
-                console.log(locationData.results[0].locations[0].adminArea5);
-                console.log(locationData.results[0].locations[0].adminArea3);
-                console.log(locationData.results[0].locations[0].adminArea1);
-                console.log("Lat " + locationData.results[0].locations[0].displayLatLng.lat);
-                console.log("Lng " + locationData.results[0].locations[0].displayLatLng.lng);
-                var forcastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly&units=imperial&appid=a8fe1a1c44677133fbab3264e86bad65"
+                lat = locationData.coord.lat;
+                lon = locationData.coord.lon;
+                console.log(lat, lon);
+                var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly&appid=" + weatherAppID;
+                // console.log(locationData.results[0].locations[0].adminArea5);
+                // console.log(locationData.results[0].locations[0].adminArea3);
+                // console.log(locationData.results[0].locations[0].adminArea1);
+                // console.log("Lat " + locationData.results[0].locations[0].displayLatLng.lat);
+                // console.log("Lng " + locationData.results[0].locations[0].displayLatLng.lng);
                 $.ajax({
-                url: forcastURL,
+                url: fiveDayURL,
                 method: "GET",
-                }).then(function (weatherData) {
-                    con
+                }).then(function (fiveDayData) {
+                    
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");
                     // $("#hi-temp").text("High temperature: " + data.main.temp_max);
