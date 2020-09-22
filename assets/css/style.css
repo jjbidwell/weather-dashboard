@@ -3,36 +3,54 @@ body{
 }
 
 main{
-    margin: 50px;
+    width: 75%;
+    margin: auto;
+
 }
 
 h1 {
     font-size: 50px;
-    color: darkslategray;
+    color: whitesmoke;
     font-family: 'Lato', sans-serif;
+    margin-bottom: 25px;
+    width: 100%;
+    background-color: darkblue;
 }
 
 .center-text{
-    margin: 50px 0;
+    margin: 35px 0;
     text-align: center;
 }
 
 .input-choice{
     border: 1px slategray solid;
-    border-radius: 20px;
     background-color: whitesmoke;
-}
-
-#today-weather-data{
-    border-radius: 20px;
-    border: 1px black solid;
 }
 
 form{
     padding: 15px;
 }
 
-#or{
-    font-size: 25px;
-    font-weight: 500;
+
+#today-weather-data{
+    border: 1px black solid;
+    padding: 25px;
+
+}
+
+.data-text{
+    font-size: 20px;
+    line-height: 100%;
+}
+
+
+.data-change{
+    font-weight: 600;
+}
+
+.weather-forcast{ 
+    background-color: wheat;
+    border: 2px black solid;
+    margin: 25px 0;
+    font-size: 16px;
 }

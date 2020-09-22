@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-
-    <main class="ui container">
-        <h1 class="center-text">Weather Dashboard</h1>
-
+    <h1 class="center-text">Weather Dashboard</h1>
+    <main>
         <section class="ui stackable two column grid">
 
             <section class="input-choice seven wide column">
@@ -89,9 +87,6 @@
                     </div>
                         <button class="huge ui olive button submit-btn" id = "city-btn" type="submit">Search</button>
                         <br>
-                        <p id="or">
-                            -OR-
-                        </p>
                         <br>
                         <form class="ui form">
                             <div class="field">
@@ -106,23 +101,55 @@
             <div class="two wide column"></div>  
 
             <section class="seven wide column" id="today-weather-data">
-                <p id="city-name" class="data">San Diego, CA</p>
-                <img src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather condition icon">
-                <p id="current-temp" class="data">Current temp</p>
-                <p id="humidity" class="data">Humidity</p>
-                <p id="conditions" class="data">Conditions</p>
-                <p id="hi-temp" class="data">Hi temp</p>
-                <p id="lo-temp" class="data">Lo temp</p>
-                <p id="wind" class="data">Wind speed</p>
-                <p id="uv" class="data">UV Index</p>
+                <h2 id="city-name">San Diego, CA</h2>
+                <img id="weather-icon" src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather condition icon">
+                <p class="data-text">Current temp: <span class="data-change" id="current-temp">79</span>&deg;</p>
+                <p class="data-text">Humidity: <span class="data-change" id="humidity">79</span>%</p>
+                <p class="data-text">Daily High: <span class="data-change" id="hi-temp">100</span>&deg;</p>
+                <p class="data-text">Daily Low: <span class="data-change" id="lo-temp">50</span>&deg;</p>
+                <p class="data-text">Wind speed: <span class="data-change" id="wind">23</span> mph</p>
+                <p class="data-text">UV Index: <span class="data-change" id="uv">79</span></p>
             </section>
 
         </section>
 
+
+        <section class="ui five column grid" id="five-day-forcast">
+            <section class="column weather-forcast">
+                <h3>9/21/2020</h3>
+                <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="thunderstorm">
+                <p>Low/High: </p>
+                <p>Humidiy: </p>
+            </section>
+            <section class="column weather-forcast">
+                <h3>9/21/2020</h3>
+                <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="thunderstorm">
+                <p>Low/High: </p>
+                <p>Humidiy: </p>
+            </section>
+            <section class="column weather-forcast">
+                <h3>9/21/2020</h3>
+                <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="thunderstorm">
+                <p>Low/High: </p>
+                <p>Humidiy: </p>
+            </section>
+            <section class="column weather-forcast">
+                <h3>9/21/2020</h3>
+                <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="thunderstorm">
+                <p>Low/High: </p>
+                <p>Humidiy: </p>
+            </section>
+            <section class="column weather-forcast">
+                <h3>9/21/2020</h3>
+                <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="thunderstorm">
+                <p>Low/High: </p>
+                <p>Humidiy: </p>
+            </section>
+        </section>
         
  
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
 <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
