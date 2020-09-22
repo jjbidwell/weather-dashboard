@@ -6,6 +6,7 @@ var todayDate = moment().format('l');
 var locationURL;
 var lat;
 var long;
+
 //console.log(moment().add(1, 'days').format('l'));
 $('.submit-btn').on('click', function(event){
     event.preventDefault()
@@ -35,8 +36,9 @@ $('.submit-btn').on('click', function(event){
             url: locationURL,
             method: "GET",
             }).then(function (locationData) {
-                lat = locationData.results[0].locations[0].displayLatLng.lat;
-                lon = locationData.results[0].locations[0].displayLatLng.lng;
+                var locationResults = locationData.results[0].locations[0]
+                lat = locationResults.displayLatLng.lat;
+                lon = locationResults.displayLatLng.lng;
                 var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=" + weatherAppID;
                 // console.log(locationData.results[0].locations[0].adminArea5);
                 // console.log(locationData.results[0].locations[0].adminArea3);
@@ -47,9 +49,18 @@ $('.submit-btn').on('click', function(event){
                 url: fiveDayURL,
                 method: "GET",
                 }).then(function (fiveDayData) {
-                    console.log(Math.round(fiveDayData.current.temp));
+                    $('#city-name').text(locationResults.adminArea5 + ", " + locationResults.adminArea3);
+                    $('#current-temp').text(Math.round(fiveDayData.current.temp));
+                    $('#humidity').text(fiveDayData.current.humidity);
+                    $('#hi-temp').text(fiveDayData.daily[0].temp.max.toFixed(1));
+                    $('#lo-temp').text(fiveDayData.daily[0].temp.min.toFixed(1));
+                    $('#wind').text(Math.round(fiveDayData.current.wind_speed));
+                    $('#uv').text(fiveDayData.current.uvi.toFixed(1));
+                    $('#weather-icon').attr('src', "http://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
+                    $('#today-weather-data').fadeIn(250);
+                    console.log(fiveDayData);
                     for (var i = 1; i < 6 ; i++){
-                        console.log(fiveDayData.daily[i].dt);
+                    
                     }
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");

@@ -33,6 +33,7 @@ form{
 
 
 #today-weather-data{
+    display: none;
     border: 1px black solid;
     padding: 25px;
 
