@@ -9,7 +9,7 @@ var long;
 
 //console.log(moment().add(1, 'days').format('l'));
 $('.submit-btn').on('click', function(event){
-    event.preventDefault()
+    event.preventDefault();
     var state = "";
     var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg&location=victorville,ca"
 
@@ -49,27 +49,37 @@ $('.submit-btn').on('click', function(event){
                 url: fiveDayURL,
                 method: "GET",
                 }).then(function (fiveDayData) {
-                    $('#city-name').text(locationResults.adminArea5 + ", " + locationResults.adminArea3);
-                    $('#current-temp').text(Math.round(fiveDayData.current.temp));
+                    if (locationResults.adminArea3 !== ""){
+                        $('#city-name').text(locationResults.adminArea5 + ", " + locationResults.adminArea3);
+                    } else {
+                        $('#city-name').text(locationResults.adminArea5);
+                    }
+                        $('#current-temp').text(Math.round(fiveDayData.current.temp));
                     $('#humidity').text(fiveDayData.current.humidity);
                     $('#hi-temp').text(fiveDayData.daily[0].temp.max.toFixed(1));
                     $('#lo-temp').text(fiveDayData.daily[0].temp.min.toFixed(1));
                     $('#wind').text(Math.round(fiveDayData.current.wind_speed));
                     $('#uv').text(fiveDayData.current.uvi.toFixed(1));
                     $('#weather-icon').attr('src', "http://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
-                    $('#today-weather-data').fadeIn(250);
                     console.log(fiveDayData);
                     $('#five-day-forcast').empty();
+                    $('#five-day-forcast').css('display', "none");
+                    $('#today-weather-data').css('display', "none");
                     for (var i = 1; i < 6 ; i++){
-                        var newDiv = $('<div>').attr('class', 'column weather-forcast');
+                        var newDiv = $('<div>').attr({'class': 'column weather-forcast',
+                                                      'id': "day-" + i });
+                        var newDate = $('<h3>').text("9/22/20");
                         var newIcon = $('<img>').attr({'src': "http://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
-                                                       "alt": "Weather icon"});
+                                                       "alt": "Weather icon",
+                                                        "class": "five-day-icon"});
                         var newTemp = $('<p>').text("Low/High temp: " + fiveDayData.daily[i].temp.min.toFixed(1) + "/" + fiveDayData.daily[i].temp.max.toFixed(1));
                         var newHumidity = $('<p>').text("Humidity: " + fiveDayData.daily[i].humidity);
-                        newDiv.append(newIcon, newTemp, newHumidity);
+                        newDiv.append(newDate, newIcon, newTemp, newHumidity);
                         newDiv.appendTo($('#five-day-forcast'));
-
+                        $('#today-weather-data').fadeIn(500);
+                        $('#five-day-forcast').delay(500).fadeIn(500);
                     }
+
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");
                     // $("#hi-temp").text("High temperature: " + data.main.temp_max);
@@ -108,5 +118,7 @@ $('.submit-btn').on('click', function(event){
             // $("#lo-temp").text("Low temperature: " + data.main.temp_min);
         })
        // console.log(tempArray);
+
+
 
 });

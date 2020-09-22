@@ -32,6 +32,7 @@ form{
 }
 
 #search-history{
+    background-color: #c4ebe5;
     border: 1px slategray solid;
     padding: 0px;
 }
@@ -42,27 +43,24 @@ form{
 
 }
 
-ul {
-    
-    width: 100%;
-    font-size: 20px;
-    line-height: 150%;
-    list-style-type: none;
+.search-p {
+    cursor: pointer;
+    margin: 10px 20px;
+    font-size: 18px;
+    line-height: 100%;
+    transition: color .25s;
 }
 
-li {
-    margin: 0;
-    width: 100%;
-    transition: color .5s;
-}
 
-li:hover {
+
+.search-p:hover {
     color: red;
 }
 
 #today-weather-data{
     display: none;
-    border: 1px black solid;
+    border: 1px slategray solid;
+    background-color:#c0d46a;
     padding: 25px;
 
 }
@@ -77,9 +75,16 @@ li:hover {
     font-weight: 600;
 }
 
+#five-day-forcast {
+    display: none;
+}
+
+
 .weather-forcast{ 
-    background-color: wheat;
+    background-color: #c6bee8 ;
     border: 2px black solid;
     margin: 25px 0;
     font-size: 16px;
+    word-wrap: break-word;
 }
+

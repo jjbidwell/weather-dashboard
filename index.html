@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -11,7 +11,7 @@
 <body>
     <h1 class="center-text">Weather Dashboard</h1>
     <main>
-        <section class="ui stackable two column grid">
+        <section class="ui stackable three column grid segmeent">
 
             <section class="input-choice six wide column">
                 <form class="ui form">
@@ -100,36 +100,38 @@
 
             <section id="search-history" class="four wide column">
                 <h2 id="history-text">Search History</h2>
-                <ul>
-                    <li>San Diego, CA</li>
-                    <li>Austin, TX</li>
-                    <li>Düsseldorf, North Rhine-Westphalia</li>
-                    <li>Munich, Bavaria</li>
-                    <li>Giza, Giza Governorate</li>
-                    <li>Los Angeles, CA</li>
-                    <li>Miami, FL</li>
-                    <li>Bangor, ME</li>
-                    <li>Santa Fe, NM</li>
-                    <li>Tucson, AZ</li>
-                </ul>
+                
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                    <p class="search-p"></p>
+                
 
             </section>  
 
-            <section class="six wide column" id="today-weather-data">
-                <h2 id="city-name">San Diego, CA</h2>
-                <img id="weather-icon" src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather condition icon">
-                <p class="data-text">Current temp: <span class="data-change" id="current-temp">79</span>&deg;</p>
-                <p class="data-text">Humidity: <span class="data-change" id="humidity">79</span>%</p>
-                <p class="data-text">Today's High: <span class="data-change" id="hi-temp">100</span>&deg;</p>
-                <p class="data-text">Today's Low: <span class="data-change" id="lo-temp">50</span>&deg;</p>
-                <p class="data-text">Wind speed: <span class="data-change" id="wind">23</span> mph</p>
-                <p class="data-text">Max sUV Index: <span class="data-change" id="uv">79</span></p>
+            <section class="ui six wide column" id="today-weather-data">
+                <div class="ui">
+                    <h2 id="city-name">San Diego, CA</h2>
+                    <img id="weather-icon" src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather condition icon">
+                    <p class="data-text">Current temp: <span class="data-change" id="current-temp">79</span>&deg;</p>
+                    <p class="data-text">Humidity: <span class="data-change" id="humidity">79</span>%</p>
+                    <p class="data-text">Today's High: <span class="data-change" id="hi-temp">100</span>&deg;</p>
+                    <p class="data-text">Today's Low: <span class="data-change" id="lo-temp">50</span>&deg;</p>
+                    <p class="data-text">Wind speed: <span class="data-change" id="wind">23</span> mph</p>
+                    <p class="data-text">Max sUV Index: <span class="data-change" id="uv">79</span></p>
+                </div>
             </section>
 
         </section>
 
 
-        <section class="ui five column grid" id="five-day-forcast">
+        <section class="ui stackable five column grid" id="five-day-forcast">
             <!--
             <section class="column weather-forcast">
                 <h3>9/21/2020</h3>
