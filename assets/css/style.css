@@ -31,6 +31,34 @@ form{
     padding: 15px;
 }
 
+#search-history{
+    border: 1px slategray solid;
+    padding: 0px;
+}
+
+#history-text {
+    padding: 15px;
+    text-align: center;
+
+}
+
+ul {
+    
+    width: 100%;
+    font-size: 20px;
+    line-height: 150%;
+    list-style-type: none;
+}
+
+li {
+    margin: 0;
+    width: 100%;
+    transition: color .5s;
+}
+
+li:hover {
+    color: red;
+}
 
 #today-weather-data{
     display: none;

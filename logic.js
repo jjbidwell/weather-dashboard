@@ -59,6 +59,7 @@ $('.submit-btn').on('click', function(event){
                     $('#weather-icon').attr('src', "http://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
                     $('#today-weather-data').fadeIn(250);
                     console.log(fiveDayData);
+                    $('#five-day-forcast').empty();
                     for (var i = 1; i < 6 ; i++){
                         var newDiv = $('<div>').attr('class', 'column weather-forcast');
                         var newIcon = $('<img>').attr({'src': "http://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
