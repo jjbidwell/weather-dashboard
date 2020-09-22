@@ -2,24 +2,31 @@
 var weatherAppID = "a8fe1a1c44677133fbab3264e86bad65";
 var locID = "iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg";
 var city = "";
-var state = "";
+
+var locationURL;
 var lat;
 var long;
 //var tempArray = [];
 $('.submit-btn').on('click', function(event){
     event.preventDefault()
-var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg&location=victorville,ca"
+    var state = "";
+    var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg&location=victorville,ca"
+
     if($(this).attr('id') === 'city-btn' && $('#city').val().trim() !== ""){
         //Search by City
         city = $('#city').val();        
-        var oneDayURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + weatherAppID;     
+        
+        if($('option:selected').attr('value') !== "" ){
+            state = $('option:selected').attr('value');
+        }     
+        locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ city + state;
     } else if($(this).attr('id') === 'zip-btn' && $('#zip').val().trim() !== ""){
-        //Searcg by zip
+
         var zip = $('#zip').val();
-        var oneDayURL = "https://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + weatherAppID;
+        var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ zip;
     }
 
-    
+
         // $.ajax({
         //     url: queryURL,
         //     method: "GET",
@@ -34,15 +41,12 @@ var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIph
 
 
         $.ajax({
-            url: oneDayURL,
+            url: locationURL,
             method: "GET",
             }).then(function (locationData) {
-                console.log(oneDayURL);
-                console.log(locationData)
-                lat = locationData.coord.lat;
-                lon = locationData.coord.lon;
-                console.log(lat, lon);
-                var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly&appid=" + weatherAppID;
+                lat = locationData.results[0].locations[0].displayLatLng.lat;
+                lon = locationData.results[0].locations[0].displayLatLng.lng;
+                var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly&units=imperial&appid=" + weatherAppID;
                 // console.log(locationData.results[0].locations[0].adminArea5);
                 // console.log(locationData.results[0].locations[0].adminArea3);
                 // console.log(locationData.results[0].locations[0].adminArea1);
@@ -52,7 +56,10 @@ var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIph
                 url: fiveDayURL,
                 method: "GET",
                 }).then(function (fiveDayData) {
-                    
+                    console.log(fiveDayData);
+                    for (var i = 1; i < 6 ; i++){
+                        console.log(fiveDayData.daily[i].dt);
+                    }
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");
                     // $("#hi-temp").text("High temperature: " + data.main.temp_max);

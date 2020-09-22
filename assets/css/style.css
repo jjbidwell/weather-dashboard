@@ -23,11 +23,16 @@ h1 {
     background-color: whitesmoke;
 }
 
+#today-weather-data{
+    border-radius: 20px;
+    border: 1px black solid;
+}
+
 form{
     padding: 15px;
 }
 
 #or{
-    font-size: 40px;
+    font-size: 25px;
     font-weight: 500;
 }
