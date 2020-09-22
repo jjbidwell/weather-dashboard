@@ -60,7 +60,14 @@ $('.submit-btn').on('click', function(event){
                     $('#today-weather-data').fadeIn(250);
                     console.log(fiveDayData);
                     for (var i = 1; i < 6 ; i++){
-                    
+                        var newDiv = $('<div>').attr('class', 'column weather-forcast');
+                        var newIcon = $('<img>').attr({'src': "http://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
+                                                       "alt": "Weather icon"});
+                        var newTemp = $('<p>').text("Low/High temp: " + fiveDayData.daily[i].temp.min.toFixed(1) + "/" + fiveDayData.daily[i].temp.max.toFixed(1));
+                        var newHumidity = $('<p>').text("Humidity: " + fiveDayData.daily[i].humidity);
+                        newDiv.append(newIcon, newTemp, newHumidity);
+                        newDiv.appendTo($('#five-day-forcast'));
+
                     }
                     // $("#current-temp").text("Current temperature: " + data.main.temp.toFixed(1));
                     // $('#humidity').text("Humidity: " + data.main.humidity + "%");
