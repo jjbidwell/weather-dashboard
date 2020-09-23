@@ -2,6 +2,7 @@
 var weatherAppID = "a8fe1a1c44677133fbab3264e86bad65";
 var locID = "iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg";
 var city = "";
+var state = "";
 var todayDate = moment().format('l');
 var locationURL;
 var lat;
@@ -10,11 +11,18 @@ var long;
 //console.log(moment().add(1, 'days').format('l'));
 $('.submit-btn').on('click', function(event){
     event.preventDefault();
-    var state = "";
+
+    if($(this).attr('id') === 'city-btn' && $('#city').val().trim() === "" || $(this).attr('id') === 'zip-btn' && $('#zip').val().trim() === ""){
+        alert('You must enter either a city or zip code to proceed');
+        return;
+    }
+
+
     var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=iqdeIphOmFTHdvGRonpZrdKkjACvb5Sg&location=victorville,ca"
 
     if($(this).attr('id') === 'city-btn' && $('#city').val().trim() !== ""){
         //Search by City
+        console.log("City Value" + $('#city').val().trim())
         city = $('#city').val();        
         
         if($('option:selected').attr('value') !== "" ){
@@ -49,22 +57,40 @@ $('.submit-btn').on('click', function(event){
                 url: fiveDayURL,
                 method: "GET",
                 }).then(function (fiveDayData) {
-                    if (locationResults.adminArea3 !== ""){
-                        $('#city-name').text(locationResults.adminArea5 + ", " + locationResults.adminArea3);
+                    city = locationResults.adminArea5;
+                    state = locationResults.adminArea3;
+                    if (state !== ""){
+                        $('#city-name').text(city + ", " + state);
+                        $('#search-history').append('<p class="search-p">' + city + ", " + state + '</p>')
                     } else {
-                        $('#city-name').text(locationResults.adminArea5);
+                        $('#city-name').text(city);
+                        $('#search-history').append('<p class="search-p">' + city + '</p>')
                     }
-                        $('#current-temp').text(Math.round(fiveDayData.current.temp));
+                    var currentUV = fiveDayData.current.uvi;
+
+                    $('#current-temp').text(Math.round(fiveDayData.current.temp));
                     $('#humidity').text(fiveDayData.current.humidity);
                     $('#hi-temp').text(fiveDayData.daily[0].temp.max.toFixed(1));
                     $('#lo-temp').text(fiveDayData.daily[0].temp.min.toFixed(1));
                     $('#wind').text(Math.round(fiveDayData.current.wind_speed));
-                    $('#uv').text(fiveDayData.current.uvi.toFixed(1));
+                    $('#uv').text(currentUV.toFixed(1));
                     $('#weather-icon').attr('src', "http://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
                     console.log(fiveDayData);
                     $('#five-day-forcast').empty();
                     $('#five-day-forcast').css('display', "none");
                     $('#today-weather-data').css('display', "none");
+
+                    if(currentUV <= 2){
+                        $('#uv').css({'background-color': 'green', 'color': "white"})
+                    } else if(currentUV > 2 && currentUV <=5){
+                        $('#uv').css({'background-color': 'yellow', 'color': "black"})
+                    } else if(currentUV > 5 && currentUV <= 7){
+                        $('#uv').css({'background-color': 'orange', 'color': "white"})
+                    } else if(currentUV > 7){
+                        $('#uv').css({'background-color': 'red', 'color': "white"})
+                    }
+
+
                     for (var i = 1; i < 6 ; i++){
                         var newDiv = $('<div>').attr({'class': 'column weather-forcast',
                                                       'id': "day-" + i });
