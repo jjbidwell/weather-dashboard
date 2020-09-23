@@ -37,9 +37,13 @@ $('.submit-btn').on('click', function(event){
         //Search by City
         city = $('#city').val();        
         
-        if($('option:selected').attr('value') !== "" ){
+
+        if($('option:selected').attr('value') === "" )  {
+            alert('You must select a state, territory, or outside the US to proceed');
+            return;
+        }else if($('option:selected').attr('value') !== "-" ){
             state = $('option:selected').attr('value');
-        }     
+        } 
         locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ city + state;
     } else if($(this).attr('id') === 'zip-btn' && $('#zip').val().trim() !== ""){
         //search by Zip
@@ -47,15 +51,14 @@ $('.submit-btn').on('click', function(event){
         var locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ zip;
     } else if($(this).attr('class') === 'submit-btn search-p'){
         //Click on search history
-        city = $(this).text();
-        locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ city;
+        fullCity = $(this).text();
+        var space = fullCity.lastIndexOf(" ")
+        city = fullCity.slice(0, space);
+        state = fullCity.slice(space);
+        locationURL = "https://open.mapquestapi.com/geocoding/v1/address?key=" + locID + "&location="+ city + "," + state;
     }
 
     
-
-
-
-
         $.ajax({
             url: locationURL,
             method: "GET",
@@ -64,18 +67,16 @@ $('.submit-btn').on('click', function(event){
                 lat = locationResults.displayLatLng.lat;
                 lon = locationResults.displayLatLng.lng;
                 fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=" + weatherAppID;
-                console.log(locationData);
-
                 $.ajax({
                 url: fiveDayURL,
                 method: "GET",
                 }).then(function (fiveDayData) {
-                    console.log(fiveDayData)
-                    city = locationResults.adminArea5;
-                    state = locationResults.adminArea3;
+                    
+                        city = locationResults.adminArea5;
+                        state = locationResults.adminArea3;
                     if (state !== ""){
                         $('#city-name').text(city + " " + state);
-                    } else if (state !== ""){
+                    } else if (state === ""){
                         $('#city-name').text(city);
                     }
 
@@ -91,7 +92,6 @@ $('.submit-btn').on('click', function(event){
                     if (historyArray.length > 10){
                         historyArray.pop();
                     }
-                    console.log(historyArray);
                     localStorage.setItem('search history', historyArray);
                     render();
                     var currentUV = fiveDayData.current.uvi;
@@ -121,12 +121,12 @@ $('.submit-btn').on('click', function(event){
                     for (var i = 1; i < 6 ; i++){
                         var newDiv = $('<div>').attr({'class': 'column weather-forcast',
                                                       'id': "day-" + i });
-                        var newDate = $('<h3>').text("9/22/20");
+                        var newDate = $('<h3>').text(moment().add(i, 'days').format('l'));
                         var newIcon = $('<img>').attr({'src': "http://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
                                                        "alt": "Weather icon",
                                                         "class": "five-day-icon"});
-                        var newTemp = $('<p>').text("Low/High temp: " + fiveDayData.daily[i].temp.min.toFixed(1) + "/" + fiveDayData.daily[i].temp.max.toFixed(1));
-                        var newHumidity = $('<p>').text("Humidity: " + fiveDayData.daily[i].humidity);
+                        var newTemp = $('<p>').html("Low/High temp: <span class='bold'>" + fiveDayData.daily[i].temp.min.toFixed(1) + "/" + fiveDayData.daily[i].temp.max.toFixed(1) + "</span>");
+                        var newHumidity = $('<p>').html("Humidity: <span class='bold'>" + fiveDayData.daily[i].humidity + "</span>%");
                         newDiv.append(newDate, newIcon, newTemp, newHumidity);
                         newDiv.appendTo($('#five-day-forcast'));
                         $('#today-weather-data').fadeIn(500);
@@ -142,7 +142,7 @@ $('.submit-btn').on('click', function(event){
             
         })
 
-
+$('select').prop('selectedIndex', 0);
 $('#city').val('');
 $('#zip').val('')
 
