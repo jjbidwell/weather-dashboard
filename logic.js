@@ -133,7 +133,7 @@ $('.submit-btn').on('click', function(event){
                         var newDiv = $('<div>').attr({'class': 'column weather-forcast',
                                                       'id': "day-" + i });
                         var newDate = $('<h3>').text(moment().add(i, 'days').format('l'));
-                        var newIcon = $('<img>').attr({'src': "http://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
+                        var newIcon = $('<img>').attr({'src': "https://openweathermap.org/img/wn/" + fiveDayData.daily[i].weather[0].icon + "@2x.png", 
                                                        "alt": "Weather icon",
                                                         "class": "five-day-icon"});
                         var newTemp = $('<p>').html("Low/High temp: <span class='bold'>" + fiveDayData.daily[i].temp.min.toFixed(1) + "/" + fiveDayData.daily[i].temp.max.toFixed(1) + "</span>");
