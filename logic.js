@@ -113,7 +113,7 @@ $('.submit-btn').on('click', function(event){
                     $('#lo-temp').text(fiveDayData.daily[0].temp.min.toFixed(1));
                     $('#wind').text(Math.round(fiveDayData.current.wind_speed));
                     $('#uv').text(currentUV.toFixed(1));
-                    $('#weather-icon').attr('src', "http://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
+                    $('#weather-icon').attr('src', "https://openweathermap.org/img/wn/" + fiveDayData.current.weather[0].icon + "@2x.png");
                     $('#five-day-forcast').empty();
 
                     
