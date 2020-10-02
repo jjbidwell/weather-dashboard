@@ -1,6 +1,6 @@
 # weather-dashboard
 
-##Description
+## Description
 -----------------------------------------
 
 This is a weather dashboard that I have built using HTML, CSS, JavaScript, and multiple libraries and third-party APIs. 
@@ -11,14 +11,14 @@ I decided to use Mapquest for coordinates because I was having trouble finding a
 
 The project also uses local storage to save searches for later reference. I have made it so that the recent searches are limited to 10, with the oldest being removed when an 11th is added. I tried to make it so that a city can not appear twice in the recent storage, and based on my testing, it seems to work. 
 
-##Links
+## Links
 -------------------------------------------
 
 Deployed app: https://jjbidwell.github.io/weather-dashboard/
 Github repository: https://github.com/jjbidwell/weather-dashboard
 
 
-##Screenshots
+## Screenshots
 ----------------------------------------------
 
 ![Pre-search](./assets/images/pre.png)
